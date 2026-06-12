@@ -491,19 +491,6 @@ local PostSimEvent = PostSim:Connect(function()
 	end
 end)
 
--- Permanent Death
-if PermanentDeath then
-	task.spawn(function()
-		Wait(game:FindFirstChildWhichIsA("Players").RespawnTime + 0.5)
-		if HeadlessPerma == true then
-			Character:FindFirstChild("Head"):Remove()
-		else
-			Character:FindFirstChild("Head"):BreakJoints()
-			Offsets["Head"] = {Figure:FindFirstChild("Head"), CF0}
-		end
-	end)
-end
-
 -- Ending Process
 Global.RealChar = Character	
 Character.Parent = Figure
@@ -533,7 +520,6 @@ DeathEvent = FigureHum.Died:Connect(function()
 		Global.Stopped = false
 	end)
 end)
-
 
 Warn("Reanimated in " .. string.sub(tostring(tick()-Speed),1,string.find(tostring(tick()-Speed),".")+5))
 if not DisableAnimations then
