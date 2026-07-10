@@ -1,0 +1,1214 @@
+-- Get the TextChatService
+local TextChatService = game:GetService("TextChatService")
+
+-- Function to send a chat message
+local function sendChatMessage(message)
+    -- Check if TextChatService is available
+    if TextChatService then
+        -- Send the message to the default chat channel
+        local chatChannel = TextChatService.TextChannels.RBXGeneral
+        if chatChannel then
+            chatChannel:SendAsync(message)
+        else
+            warn("Default chat channel (RBXGeneral) not found!")
+        end
+    else
+        warn("TextChatService is not available!")
+    end
+end
+
+sendChatMessage("-gh 121290673270759  110417854751822 18999927321 133494382216113 75253928472062 92446832636929 85553268095223 98099894849025")
+wait(7)
+sendChatMessage("-gh 18974146513 18974150883 10971843040 108034221647149 16448933017 16448933017 15188487665 12649326901 15518595865")
+wait(7)
+sendChatMessage("-gh 123299565162837 129869875355653 17650507297012 123845356193764 86705650701134 84552051930287 2649326901 100567089802418")
+wait(6)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/barbosaatestbarbosaa-hash/Sounda/refs/heads/main/Cube%204"))()
+wait(5)
+
+sendChatMessage("-net")
+sendChatMessage("-pd")
+
+task.spawn(function()
+
+    local player = game.Players.LocalPlayer
+    local char = player.Character or player.CharacterAdded:Wait()
+    local head = char:WaitForChild("Head")
+
+    -- Attachment eye
+    local eye = head:FindFirstChild("eye")
+    if not eye then
+        eye = Instance.new("Attachment")
+        eye.Name = "eye"
+        eye.Position = Vector3.new(0.2, 0.15, -0.4)   -- posição que você pediu
+        eye.Parent = head
+    end
+
+    -- Particle Emitter
+    local p = eye:FindFirstChild("EyeParticle") or Instance.new("ParticleEmitter")
+    p.Name = "EyeParticle"
+    p.Parent = eye
+
+    p.Enabled = true
+    p.Texture = "rbxassetid://91738358357977"
+    p.Rate = 20
+
+    p.Lifetime = NumberRange.new(0.5, 0.5)
+    p.Speed = NumberRange.new(1.5, 1.5)
+    p.SpreadAngle = Vector2.new(0, 0)
+
+    p.Rotation = NumberRange.new(-90, -90)
+    p.RotSpeed = NumberRange.new(0, 0)
+
+    p.Size = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0),
+        NumberSequenceKeypoint.new(0.5, 0.875),
+        NumberSequenceKeypoint.new(1, 0)
+    })
+
+    p.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0),
+        NumberSequenceKeypoint.new(1, 1)
+    })
+
+    p.Color = ColorSequence.new(Color3.new(1, 0.04855, 0.12312))
+
+    p.LightEmission = 0
+    p.Brightness = 10
+    p.ZOffset = 0.5
+    p.Drag = 0
+    p.Acceleration = Vector3.new(0, 0, 6.5)
+
+    p.EmissionDirection = Enum.NormalId.Right
+    p.LockedToPart = true
+    p.Orientation = Enum.ParticleOrientation.VelocityParallel
+
+    -- Flipbook
+    p.FlipbookLayout = Enum.ParticleFlipbookLayout.Grid4x4
+    p.FlipbookMode = Enum.ParticleFlipbookMode.Loop
+    p.FlipbookFramerate = NumberRange.new(22.5, 22.5)
+    p.FlipbookStartRandom = true
+
+end)
+
+getgenv().GelatekHubConfig = {
+    ["Permanent Death"] = true,
+    ["Torso Fling"] = true,
+    ["Bullet Enabled"] = false,
+    ["Keep Hats On Head"] = true,
+    ["Headless On Perma"] = false,
+    ["Disable Anims"] = true,
+    ["Enable Collisions"] = true,
+    ["Anti Void"] = true
+}
+
+loadstring(game:HttpGet("https://pastefy.app/5Vq2C3Te/raw"))()
+
+wait(5)
+
+-- // Accessory (ElrkingShedDominonAccessory) - Segue Suave + Órbita Rápida (Velocidade 9)
+-- Execute no Real Executor
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local hacklord = nil
+local alignData = nil
+local visualBlock = nil
+
+local FOLLOW_DISTANCE = 5        
+local ROTATION_SPEED = 9       -- Velocidade de órbita como você pediu
+
+local angleX = 0
+local angleY = 0
+local angleZ = 0
+
+local function getCharacter()
+    return player.Character or player.CharacterAdded:Wait()
+end
+
+local function createVisualBlock()
+    if visualBlock then visualBlock:Destroy() end
+    
+    visualBlock = Instance.new("Part")
+    visualBlock.Name = "AlignVisual"
+    visualBlock.Size = Vector3.new(1, 1, 1)
+    visualBlock.Transparency = 0.7
+    visualBlock.Anchored = true
+    visualBlock.CanCollide = false
+    visualBlock.BrickColor = BrickColor.new("Medium stone grey")
+    visualBlock.Material = Enum.Material.SmoothPlastic
+    visualBlock.Parent = Workspace
+end
+
+local function removeDuplicates()
+    local char = getCharacter()
+    if not char then return end
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v.Name == "Accessory (ElrkingShedDominonAccessory)" then
+            if hacklord and hacklord ~= v then
+                v:Destroy()
+            else
+                hacklord = v
+            end
+        end
+    end
+end
+
+local function prepareHacklord()
+    removeDuplicates()
+    
+    local char = getCharacter()
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v.Name == "Accessory (ElrkingShedDominonAccessory)" and v:FindFirstChild("Handle") then
+            hacklord = v
+            break
+        end
+    end
+    
+    if not hacklord then return end
+    
+    local handle = hacklord.Handle
+    handle:BreakJoints()
+    
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") or 
+           v:IsA("AlignPosition") or v:IsA("AlignOrientation") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = false
+    handle.Transparency = 0
+    
+    local att0 = handle:FindFirstChild("Attachment") or Instance.new("Attachment", handle)
+    local att1 = Instance.new("Attachment")
+    att1.Parent = Workspace.Terrain
+    
+    local alignPos = Instance.new("AlignPosition")
+    alignPos.Attachment0 = att0
+    alignPos.Attachment1 = att1
+    alignPos.MaxForce = 80000
+    alignPos.Responsiveness = 22
+    alignPos.Parent = handle
+    
+    local alignOri = Instance.new("AlignOrientation")
+    alignOri.Attachment0 = att0
+    alignOri.Attachment1 = att1
+    alignOri.MaxTorque = 40000
+    alignOri.Responsiveness = 18
+    alignOri.Parent = handle
+    
+    alignData = {att1 = att1}
+    
+    createVisualBlock()
+end
+
+local function updateFollow()
+    if not hacklord or not hacklord:FindFirstChild("Handle") or not alignData then return end
+    local root = getCharacter():FindFirstChild("HumanoidRootPart")
+    if not root then return end
+    
+    angleX = angleX + ROTATION_SPEED * 0.6
+    angleY = angleY + ROTATION_SPEED * 1.4
+    angleZ = angleZ + ROTATION_SPEED * 0.8
+    
+    local targetPos = root.CFrame * CFrame.new(0, 2, -FOLLOW_DISTANCE)
+    
+    local selfRotation = CFrame.Angles(angleX, angleY, angleZ)
+    
+    local targetCFrame = targetPos * selfRotation
+    
+    alignData.att1.WorldCFrame = targetCFrame
+    
+    if visualBlock then
+        visualBlock.CFrame = targetCFrame
+    end
+end
+
+local function init()
+    prepareHacklord()
+end
+
+init()
+
+player.CharacterAdded:Connect(function()
+    task.wait(1.5)
+    prepareHacklord()
+end)
+
+RunService.Heartbeat:Connect(updateFollow)
+
+task.spawn(function()
+    while true do
+        task.wait(0.3)
+        if hacklord and hacklord:FindFirstChild("Handle") then
+            hacklord.Handle.CanCollide = false
+        end
+    end
+end)
+
+wait(2)
+
+-- // Accessory Shockwave Follow - Segue o Shockwave Mais Novo (0,0,0 + Rotação 90°)
+-- Execute no Real Executor
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+
+local accessories = {}
+local currentShockwave = nil
+
+local function getCharacter()
+    return player.Character or player.CharacterAdded:Wait()
+end
+
+local function prepareAccessory(acc)
+    if not acc or not acc:FindFirstChild("Handle") then return end
+    local handle = acc.Handle
+    
+    handle:BreakJoints()
+    
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = true
+    handle.Transparency = 0
+end
+
+local function findAccessories(char)
+    accessories = {}
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v:FindFirstChild("Handle") then
+            local name = v.Name:lower()
+            if name:find("moon") or name:find("Part") or name:find("ornate") or 
+               name:find("Part") or name:find("background") then
+                accessories[v] = true
+            end
+        end
+    end
+end
+
+-- Atualiza o Shockwave mais recente
+local function updateCurrentShockwave()
+    local newest = nil
+    for _, obj in ipairs(Workspace:GetChildren()) do
+        if obj.Name == "Shockwave" then
+            newest = obj  -- pega o último encontrado (geralmente o mais novo)
+        end
+    end
+    if newest then
+        currentShockwave = newest
+    end
+    return currentShockwave
+end
+
+local function getShockwaveRoot()
+    if currentShockwave and currentShockwave.Parent then
+        return currentShockwave:FindFirstChild("Root") or currentShockwave:FindFirstChildWhichIsA("BasePart")
+    end
+    return nil
+end
+
+local function update()
+    local char = getCharacter()
+    if not char then return end
+    
+    local shockRoot = getShockwaveRoot()
+    local rootPart = char:FindFirstChild("HumanoidRootPart")
+    
+    for acc, _ in pairs(accessories) do
+        if not acc or not acc:FindFirstChild("Handle") then continue end
+        local handle = acc.Handle
+        
+        if shockRoot and shockRoot.Parent then
+            -- Segue o Shockwave mais novo com rotação 0,90,0
+            handle.CFrame = shockRoot.CFrame * CFrame.new(0, 0, 0) * CFrame.Angles(80, math.rad(0), 0)
+        elseif rootPart then
+            -- Volta para o chão
+            handle.CFrame = rootPart.CFrame * CFrame.new(0, -15, 0) * CFrame.Angles(0, math.rad(90), 40)
+        end
+        
+        handle.Anchored = true
+        handle.Transparency = 0
+        handle.CanCollide = false
+    end
+end
+
+-- Detecta novos Shockwaves
+local function onChildAdded(child)
+    if child.Name == "Shockwave" then
+        currentShockwave = child
+    end
+end
+
+-- Inicialização
+local function init()
+    local char = getCharacter()
+    findAccessories(char)
+    
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+    
+    -- Detecta Shockwaves atuais e futuros
+    updateCurrentShockwave()
+    
+    print("thanks for choosing this script")
+end
+
+init()
+
+-- Conexões
+player.CharacterAdded:Connect(function(newChar)
+    task.wait(2)
+    findAccessories(newChar)
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+
+RunService.Heartbeat:Connect(update)
+
+-- Segurança extra + atualização constante do Shockwave
+task.spawn(function()
+    while true do
+        task.wait(0.3)
+        updateCurrentShockwave()
+        
+        for acc, _ in pairs(accessories) do
+            if acc and acc:FindFirstChild("Handle") then
+                local h = acc.Handle
+                h.Anchored = true
+                h.Transparency = 0
+                h.CanCollide = true
+            end
+        end
+    end
+end)
+
+wait(2)
+
+-- // Accessory (SwordDarkDual) - Segue Entanglement (Novo Target)
+-- Execute no Real Executor
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+
+local accessories = {}
+local currentEntanglement = nil
+
+local function getCharacter()
+    return player.Character or player.CharacterAdded:Wait()
+end
+
+local function prepareAccessory(acc)
+    if not acc or not acc:FindFirstChild("Handle") then return end
+    local handle = acc.Handle
+    
+    handle:BreakJoints()
+    
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = true
+    handle.Transparency = 0
+end
+
+local function findAccessories(char)
+    accessories = {}
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v:FindFirstChild("Handle") then
+            local name = v.Name:lower()
+            if name:find("sworddarkdual") or name:find("dual") or name:find("darkdual") then
+                accessories[v] = true
+            end
+        end
+    end
+end
+
+-- Atualiza o Entanglement mais recente
+local function updateCurrentEntanglement()
+    local newest = nil
+    for _, obj in ipairs(Workspace:GetChildren()) do
+        if obj.Name == "Entanglement" then
+            newest = obj
+        end
+    end
+    if newest then
+        currentEntanglement = newest
+    end
+    return currentEntanglement
+end
+
+local function getEntanglementRoot()
+    if currentEntanglement and currentEntanglement.Parent then
+        return currentEntanglement:FindFirstChild("Root") or currentEntanglement:FindFirstChildWhichIsA("BasePart")
+    end
+    return nil
+end
+
+local function update()
+    local char = getCharacter()
+    if not char then return end
+    
+    local entRoot = getEntanglementRoot()
+    local rootPart = char:FindFirstChild("HumanoidRootPart")
+    
+    for acc, _ in pairs(accessories) do
+        if not acc or not acc:FindFirstChild("Handle") then continue end
+        local handle = acc.Handle
+        
+        if entRoot and entRoot.Parent then
+            -- Segue Entanglement em 0,0,0 + Rotação 90°
+            handle.CFrame = entRoot.CFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(180), 0)
+        elseif rootPart then
+            -- Fica embaixo do chão
+            handle.CFrame = rootPart.CFrame * CFrame.new(0, -15, 0) * CFrame.Angles(0, math.rad(0), 0)
+        end
+        
+        handle.Anchored = true
+        handle.Transparency = 0
+        handle.CanCollide = false
+    end
+end
+
+-- Detecta novo Entanglement
+local function onChildAdded(child)
+    if child.Name == "Entanglement" then
+        currentEntanglement = child
+    end
+end
+
+-- Inicialização
+local function init()
+    local char = getCharacter()
+    findAccessories(char)
+    
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+    
+    updateCurrentEntanglement()
+    
+end
+
+init()
+
+-- Conexões
+player.CharacterAdded:Connect(function(newChar)
+    task.wait(2)
+    findAccessories(newChar)
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+
+RunService.Heartbeat:Connect(update)
+
+-- Segurança + atualização constante
+task.spawn(function()
+    while true do
+        task.wait(0.3)
+        updateCurrentEntanglement()
+        
+        for acc, _ in pairs(accessories) do
+            if acc and acc:FindFirstChild("Handle") then
+                local h = acc.Handle
+                h.Anchored = true
+                h.Transparency = 0
+                h.CanCollide = false
+            end
+        end
+    end
+end)
+
+wait(2)
+
+--- // 2 Minions System - Alinhado ao Torso + CFrame Direto
+-- Execute no Real Executor
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+
+local accessories = {
+    Lamp = {},      -- Accessory (ConvenientlyShapedLamp)
+    Default = {}    -- Accessory (defaultAccessory)1
+}
+
+local minions = {}  
+
+local function getCharacter()
+    return player.Character or player.CharacterAdded:Wait()
+end
+
+local function prepareAccessory(acc)
+    if not acc or not acc:FindFirstChild("Handle") then return end
+    local handle = acc.Handle
+    
+    handle:BreakJoints()
+    
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") or 
+           v:IsA("AlignPosition") or v:IsA("AlignOrientation") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = true
+    handle.Transparency = 0
+end
+
+local function findAccessories(char)
+    accessories.Lamp = {}
+    accessories.Default = {}
+    
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") then
+            if v.Name == "Accessory (ConvenientlyShapedLamp)" then
+                accessories.Lamp[v] = true
+            elseif v.Name == "Accessory (defaultAccessory)2" then
+                accessories.Default[v] = true
+            end
+        end
+    end
+end
+
+local function makeMinionInvisible(minion)
+    if not minion then return end
+    local parts = {"Left Arm", "Right Arm", "Left Leg", "Right Leg", "Head", "Torso"}
+    for _, name in ipairs(parts) do
+        local part = minion:FindFirstChild(name)
+        if part then part.Transparency = 1 end
+    end
+    for _, child in ipairs(minion:GetChildren()) do
+        if child:IsA("Accessory") and child:FindFirstChild("Handle") then
+            child.Handle.Transparency = 1
+        end
+    end
+end
+
+local function updateMinions()
+    local found = {}
+    for _, obj in ipairs(Workspace:GetChildren()) do
+        if obj.Name == "Minion" and obj:FindFirstChild("Torso") then
+            table.insert(found, obj)
+        end
+    end
+    
+    if #found > 2 then
+        for i = 3, #found do
+            pcall(function() found[i]:Destroy() end)
+        end
+        found = {found[1], found[2]}
+    end
+    
+    minions = found
+end
+
+local function update()
+    updateMinions()
+    
+    for _, minion in ipairs(minions) do
+        makeMinionInvisible(minion)
+    end
+    
+    local rootPart = getCharacter():FindFirstChild("HumanoidRootPart")
+    
+    -- Primeiro Minion → Lamp
+    if minions[1] then
+        local torso = minions[1]:FindFirstChild("Torso")
+        for acc, _ in pairs(accessories.Lamp) do
+            prepareAccessory(acc)
+            if acc and acc:FindFirstChild("Handle") and torso then
+                acc.Handle.CFrame = torso.CFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(180), 0)
+            end
+        end
+    elseif rootPart then
+        for acc, _ in pairs(accessories.Lamp) do
+            prepareAccessory(acc)
+            if acc and acc:FindFirstChild("Handle") then
+                acc.Handle.CFrame = rootPart.CFrame * CFrame.new(0, -15, 0) * CFrame.Angles(0, math.rad(180), 0)
+            end
+        end
+    end
+    
+    -- Segundo Minion → DefaultAccessory
+    if minions[2] then
+        local torso = minions[2]:FindFirstChild("Torso")
+        for acc, _ in pairs(accessories.Default) do
+            prepareAccessory(acc)
+            if acc and acc:FindFirstChild("Handle") and torso then
+                acc.Handle.CFrame = torso.CFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(180), 0)
+            end
+        end
+    elseif rootPart then
+        for acc, _ in pairs(accessories.Default) do
+            prepareAccessory(acc)
+            if acc and acc:FindFirstChild("Handle") then
+                acc.Handle.CFrame = rootPart.CFrame * CFrame.new(0, -15, 0) * CFrame.Angles(0, math.rad(180), 0)
+            end
+        end
+    end
+end
+
+local function onChildAdded(child)
+    if child.Name == "Minion" then
+        task.wait(0.2)
+        updateMinions()
+    end
+end
+
+-- Inicialização
+local function init()
+    local char = getCharacter()
+    findAccessories(char)
+    
+    for acc, _ in pairs(accessories.Lamp) do
+        prepareAccessory(acc)
+    end
+    for acc, _ in pairs(accessories.Default) do
+        prepareAccessory(acc)
+    end
+    
+    updateMinions()
+end
+
+init()
+
+player.CharacterAdded:Connect(function(newChar)
+    task.wait(2)
+    findAccessories(newChar)
+    for acc, _ in pairs(accessories.Lamp) do prepareAccessory(acc) end
+    for acc, _ in pairs(accessories.Default) do prepareAccessory(acc) end
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+
+RunService.Heartbeat:Connect(update)
+
+-- Segurança
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+        updateMinions()
+        for _, minion in ipairs(minions) do
+            makeMinionInvisible(minion)
+        end
+    end
+end)
+
+wait(1)
+
+-- // Invisibilidade Automática - Entanglement + Mass Infection
+-- Execute no Real Executor (Script separado)
+
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local targets = {"Entanglement", "Shockwave"}
+
+local function makeInvisible(obj)
+    if not obj then return end
+    
+    for _, part in ipairs(obj:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = 1
+            part.CanCollide = false
+        end
+    end
+    
+    for _, child in ipairs(obj:GetChildren()) do
+        if child:IsA("Accessory") and child:FindFirstChild("Handle") then
+            child.Handle.Transparency = 1
+            child.Handle.CanCollide = false
+        end
+    end
+end
+
+local function scanAndHide()
+    for _, name in ipairs(targets) do
+        for _, obj in ipairs(Workspace:GetChildren()) do
+            if obj.Name == name then
+                makeInvisible(obj)
+            end
+        end
+    end
+end
+
+local function onChildAdded(child)
+    if child.Name == "Entanglement" or child.Name == "Mass Infection" then
+        task.wait(0.1)
+        makeInvisible(child)
+    end
+end
+
+-- Inicialização silenciosa
+RunService.Heartbeat:Connect(function()
+    scanAndHide()
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+
+-- Scan inicial
+task.spawn(function()
+    task.wait(1)
+    scanAndHide()
+end)
+
+-- Segurança extra
+task.spawn(function()
+    while true do
+        task.wait(1)
+        scanAndHide()
+    end
+end)
+
+--/ PartAccessory - Segue Novo Shockwave
+-- Execute no Real Executor
+
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local player = game.Players.LocalPlayer
+local accessories = {}
+local currentShockwave = nil
+
+local function prepareAccessory(acc)
+    if not acc or not acc:FindFirstChild("Handle") then return end
+    local handle = acc.Handle
+    
+    handle:BreakJoints()
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = true
+    handle.Transparency = 0
+end
+
+local function findAccessories(char)
+    accessories = {}
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v.Name == "PartAccessory" then  -- Nome exato
+            accessories[v] = true
+        end
+    end
+end
+
+local function getShockwaveRoot(shock)
+    if shock and shock.Parent then
+        return shock:FindFirstChild("Root") or shock:FindFirstChildWhichIsA("BasePart")
+    end
+    return nil
+end
+
+local function update()
+    local char = player.Character
+    local rootPart = char and char:FindFirstChild("HumanoidRootPart")
+    
+    local shockRoot = currentShockwave and getShockwaveRoot(currentShockwave)
+    
+    for acc, _ in pairs(accessories) do
+        if not acc or not acc:FindFirstChild("Handle") then continue end
+        local handle = acc.Handle
+        
+        if shockRoot then
+            -- Vai para o Shockwave mais recente
+            handle.CFrame = shockRoot.CFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(90), 0)
+        elseif rootPart then
+            -- Volta para baixo quando não tem Shockwave
+            handle.CFrame = rootPart.CFrame * CFrame.new(0, -15, 0) * CFrame.Angles(0, math.rad(90), 0)
+        end
+        
+        handle.Anchored = true
+        handle.Transparency = 0
+    end
+end
+
+-- Detecta NOVO Shockwave
+local function onChildAdded(child)
+    if child.Name == "Shockwave" then
+        currentShockwave = child  -- Atualiza para o mais novo
+    end
+end
+
+-- Inicialização
+local function init()
+    local char = player.Character or player.CharacterAdded:Wait()
+    findAccessories(char)
+    
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+end
+
+init()
+
+player.CharacterAdded:Connect(function(newChar)
+    task.wait(2)
+    findAccessories(newChar)
+    for acc, _ in pairs(accessories) do
+        prepareAccessory(acc)
+    end
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+RunService.Heartbeat:Connect(update)
+
+-- Segurança
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+        for acc, _ in pairs(accessories) do
+            if acc and acc:FindFirstChild("Handle") then
+                acc.Handle.Anchored = true
+                acc.Handle.Transparency = 0
+            end
+        end
+    end
+end)
+
+wait(2)
+
+-- // Accessory (defaultAccessory)1 - Segue Clone (R15 + R6) + Volta pro Chão
+-- Execute no Real Executor
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+local accessory = nil
+local currentClone = nil
+
+local UNDERGROUND_OFFSET = CFrame.new(0, -15, 0)
+
+local function prepareAccessory(acc)
+    if not acc or not acc:FindFirstChild("Handle") then return end
+    local handle = acc.Handle
+    
+    handle:BreakJoints()
+    for _, v in ipairs(handle:GetChildren()) do
+        if v:IsA("Motor6D") or v:IsA("Weld") or v:IsA("WeldConstraint") or 
+           v:IsA("AlignPosition") or v:IsA("AlignOrientation") then
+            v:Destroy()
+        end
+    end
+    
+    handle.CanCollide = false
+    handle.Anchored = true
+    handle.Transparency = 0
+end
+
+local function findAccessory()
+    local char = player.Character
+    if not char then return end
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA("Accessory") and v.Name == "Accessory (defaultAccessory)1" then
+            accessory = v
+            prepareAccessory(v)
+            return
+        end
+    end
+end
+
+-- Detecção Melhorada para R15 e R6
+local function getCloneTorso(clone)
+    if not clone then return nil end
+    return clone:FindFirstChild("Torso") or clone:FindFirstChild("UpperTorso")
+end
+
+local function isClone(model)
+    if not model or not model:IsA("Model") then return false end
+    if not getCloneTorso(model) then return false end
+    
+    -- Detecção forte
+    if model.Name:find("%(%d+%)") or model.Name:find("Clone") or model.Name:find("clone") then
+        return true
+    end
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr.Name == model.Name and model ~= plr.Character then
+            return true
+        end
+    end
+    return false
+end
+
+local function makeCloneInvisible(clone)
+    if not clone then return end
+    for _, part in ipairs(clone:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = 1
+            part.CanCollide = false
+        end
+    end
+end
+
+local function goToGround()
+    if accessory and accessory:FindFirstChild("Handle") then
+        local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+        if root then
+            accessory.Handle.CFrame = root.CFrame * UNDERGROUND_OFFSET
+        end
+    end
+end
+
+local function update()
+    if not accessory or not accessory:FindFirstChild("Handle") then return end
+    
+    local torso = currentClone and getCloneTorso(currentClone)
+    
+    if currentClone and currentClone.Parent and torso then
+        accessory.Handle.CFrame = torso.CFrame * CFrame.new(0, 0, 0)
+        makeCloneInvisible(currentClone)
+    else
+        goToGround()
+    end
+end
+
+local function onChildAdded(child)
+    if isClone(child) then
+        task.wait(0.1)
+        currentClone = child
+    end
+end
+
+-- Inicialização
+local function init()
+    findAccessory()
+    goToGround()
+end
+
+init()
+
+player.CharacterAdded:Connect(function()
+    task.wait(2)
+    findAccessory()
+    goToGround()
+end)
+
+Workspace.ChildAdded:Connect(onChildAdded)
+RunService.Heartbeat:Connect(update)
+
+-- Segurança + Scan contínuo
+task.spawn(function()
+    while true do
+        task.wait(0.3)
+        if currentClone and not currentClone.Parent then
+            currentClone = nil
+        end
+        
+        -- Scan manual extra
+        if not currentClone then
+            for _, obj in ipairs(Workspace:GetChildren()) do
+                if isClone(obj) then
+                    currentClone = obj
+                    break
+                end
+            end
+        end
+        
+        if accessory and accessory:FindFirstChild("Handle") and not currentClone then
+            goToGround()
+        end
+    end
+end)
+
+--// LMS Auto Effects Script
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local button = player.PlayerGui:WaitForChild("HacklordUI"):WaitForChild("TextButton")
+
+local effect1 = workspace:WaitForChild("GelatekReanimate", 5)
+    :WaitForChild("Head")
+    :WaitForChild("EyesFlare")
+    :WaitForChild("Small :D")
+
+local effect2 = workspace.GelatekReanimate.Head.EyesFlare:WaitForChild("Flames")
+
+local isWaiting = false
+local currentDelayThread = nil
+
+local function enableEffects()
+    if effect1 and effect2 then
+        effect1.Enabled = true
+        effect2.Enabled = true
+    end
+end
+
+local function disableEffects()
+    if effect1 and effect2 then
+        effect1.Enabled = false
+        effect2.Enabled = false
+    end
+end
+
+-- Loop principal
+RunService.Heartbeat:Connect(function()
+    if not button then return end
+    
+    local text = button.Text:upper():gsub("%s+", " ")
+    
+    if text == "LMS ON" then
+        if not isWaiting then
+            isWaiting = true
+            
+            currentDelayThread = task.spawn(function()
+                local startTime = tick()
+                
+                while tick() - startTime < 22 do
+                    if button.Text:upper():gsub("%s+", " ") ~= "LMS ON" then
+                        isWaiting = false
+                        currentDelayThread = nil
+                        return
+                    end
+                    task.wait()
+                end
+                
+                enableEffects()
+                isWaiting = false
+                currentDelayThread = nil
+            end)
+        end
+        
+    elseif text == "LMS OFF" then
+        if isWaiting and currentDelayThread then
+            task.cancel(currentDelayThread)
+            currentDelayThread = nil
+        end
+        isWaiting = false
+        disableEffects()
+    end
+end)
+
+--// Aim Assist Shockwave + Entanglement
+
+local Players = game:GetService("Players")
+
+local Player = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local Old = PlayerGui:FindFirstChild("AimAll")
+if Old then
+	Old:Destroy()
+end
+
+local Enabled = false
+
+-- GUI
+local Gui = Instance.new("ScreenGui")
+Gui.Name = "AimAll"
+Gui.ResetOnSpawn = false
+Gui.Parent = PlayerGui
+
+local Button = Instance.new("TextButton")
+Button.Size = UDim2.fromOffset(55,55)
+Button.Position = UDim2.new(0,20,0.5,-27)
+Button.BackgroundColor3 = Color3.new(0,0,0)
+Button.BackgroundTransparency = 0.3
+Button.Text = ""
+Button.BorderSizePixel = 0
+Button.Parent = Gui
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(1,0)
+Corner.Parent = Button
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Thickness = 2
+Stroke.Color = Color3.new(1,1,1)
+Stroke.Parent = Button
+
+
+Button.MouseButton1Click:Connect(function()
+
+	Enabled = not Enabled
+
+	if Enabled then
+		Stroke.Color = Color3.fromRGB(0,255,0)
+	else
+		Stroke.Color = Color3.new(1,1,1)
+	end
+
+end)
+
+
+local function AimPart(part)
+
+	local Body = part:FindFirstChildOfClass("BodyVelocity")
+
+	if Body then
+		local Speed = Body.Velocity.Magnitude
+		Body.Velocity = Camera.CFrame.LookVector * Speed
+	end
+
+end
+
+
+workspace.ChildAdded:Connect(function(obj)
+
+	if not Enabled then
+		return
+	end
+
+
+	-- Shockwave
+	if obj.Name == "Shockwave" then
+
+		task.wait()
+
+		local Root = obj:FindFirstChild("Root")
+
+		if Root then
+			AimPart(Root)
+		end
+
+	end
+
+
+	-- Entanglement
+	if obj.Name == "Entanglement" then
+
+		task.wait()
+
+		local Core = obj:FindFirstChild("Core")
+
+		if Core then
+			AimPart(Core)
+		end
+
+	end
+
+end)
