@@ -1,0 +1,123 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+-- Configuration
+local TARGET_ACCESSORY_NAME = "Accessory (Baby Blue Kemono Fox Tail)"
+
+-- Smooth Wag Animation Settings
+local WAG_SPEED = 2.3         -- Slower, calmer wag tempo (Down from 3.5)
+local WAG_ANGLE = 30          -- Tight, gentle side-to-side range in degrees (Down from 10)
+local BREATH_SPEED = 1     -- Barely noticeable up/down idle breathing pace
+local BREATH_ANGLE = 12       -- Very small breathing depth in degrees
+
+-- Tone-down Cape Physics Constants
+local CAPE_LIFT_MAX = 15      -- Maximum angle it lifts when running (Prevents it from looking broken)
+local CAPE_DROP_MAX = 45      -- Maximum angle it drops when jumping
+local CAPE_FLOAT_MAX = 30     -- Maximum angle it floats up when falling
+local SWAY_SMOOTHING = 0.07   -- Lower number makes the tail heavy, soft, and lag smoothly (Down from 0.12)
+
+local function setupSmoothTail(character, accessory)
+	local handle = accessory:FindFirstChild("Handle")
+	if not handle then return end
+
+	-- Find the joint weld (supports standard setups and reanimations seamlessly)
+	local accessoryWeld = handle:WaitForChild("AccessoryWeld", 5) or handle:FindFirstChildOfClass("Weld")
+	if not accessoryWeld then return end
+
+	local originalC1 = accessoryWeld.C1
+	
+	-- Physics tracking states
+	local currentYawSway = 0
+	local currentPitchSway = 0
+	local lastPosition = Vector3.new()
+
+	local rootPart = accessoryWeld.Part0 or character:FindFirstChild("LowerTorso") or character:FindFirstChild("HumanoidRootPart")
+	if rootPart then lastPosition = rootPart.Position end
+
+	local heartbeatConnection
+	heartbeatConnection = RunService.Heartbeat:Connect(function(dt)
+		if not character:IsDescendantOf(workspace) or not accessoryWeld:IsDescendantOf(workspace) or not handle:IsDescendantOf(workspace) then
+			heartbeatConnection:Disconnect()
+			return
+		end
+
+		local currentRoot = accessoryWeld.Part0 or character:FindFirstChild("LowerTorso") or character:FindFirstChild("HumanoidRootPart")
+		if not currentRoot then return end
+
+		-- 1. TRACK 3D VELOCITY
+		local currentPosition = currentRoot.Position
+		local velocity = (currentPosition - lastPosition) / (dt > 0 and dt or 0.01)
+		lastPosition = currentPosition
+
+		-- Convert global velocity to the player's local grid orientation
+		local localVelocity = currentRoot.CFrame:VectorToObjectSpace(velocity)
+
+		-- 2. CALM CAPE PHYSICS LOGIC
+		local targetYawSway = 0
+		local targetPitchSway = 0
+
+		-- Running Forward Lift (Subtle angle drag)
+		if math.abs(localVelocity.Z) > 1 then
+			local forwardSpeed = -localVelocity.Z
+			targetPitchSway = targetPitchSway - math.rad(math.clamp(forwardSpeed * 1.2, -5, CAPE_LIFT_MAX))
+		end
+
+		-- Sideways Turning Sway
+		if math.abs(localVelocity.X) > 1 then
+			targetYawSway = math.rad(math.clamp(localVelocity.X * 0.8, -12, 12))
+		end
+
+		-- Vertical Movements (Jumping / Falling)
+		local verticalVelocity = localVelocity.Y
+		if verticalVelocity > 1 then
+			-- JUMPING: Soft down tilt
+			targetPitchSway = targetPitchSway + math.rad(math.clamp(verticalVelocity * 1.2, 0, CAPE_DROP_MAX))
+		elseif verticalVelocity < -1 then
+			-- FALLING: Gentle float upward
+			targetPitchSway = targetPitchSway - math.rad(math.clamp(math.abs(verticalVelocity) * 1.0, 0, CAPE_FLOAT_MAX))
+		end
+
+		-- 3. HEAVY LINEAR INTERPOLATION (Erases all jittering/gross snapping)
+		currentYawSway = currentYawSway + (targetYawSway - currentYawSway) * SWAY_SMOOTHING
+		currentPitchSway = currentPitchSway + (targetPitchSway - currentPitchSway) * SWAY_SMOOTHING
+
+		-- 4. SLOW PROCEDURAL WAG ANIMATION LOOP
+		local currentTime = os.clock()
+		local animatedYaw = math.sin(currentTime * WAG_SPEED) * math.rad(WAG_ANGLE)
+		local animatedPitch = math.cos(currentTime * BREATH_SPEED) * math.rad(BREATH_ANGLE)
+
+		-- 5. COMBINE MATRICES CLEANLY
+		local finalYaw = animatedYaw + currentYawSway
+		local finalPitch = animatedPitch + currentPitchSway
+
+		-- Inject smoothly into C1 offset without overriding reanimations
+		accessoryWeld.C1 = originalC1 * CFrame.Angles(finalPitch, finalYaw, 0)
+	end)
+end
+
+-- Character management tracking loops
+local function onCharacterAdded(character)
+	character.ChildAdded:Connect(function(child)
+		if child:IsA("Accessory") and child.Name == TARGET_ACCESSORY_NAME then
+			task.wait(0.1)
+			setupSmoothTail(character, child)
+		end
+	end)
+
+	local immediateTail = character:FindFirstChild(TARGET_ACCESSORY_NAME)
+	if immediateTail and immediateTail:IsA("Accessory") then
+		setupSmoothTail(character, immediateTail)
+	end
+end
+
+local function onPlayerAdded(player)
+	player.CharacterAdded:Connect(onCharacterAdded)
+	if player.Character then
+		onCharacterAdded(player.Character)
+	end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+for _, player in ipairs(Players:GetPlayers()) do
+	onPlayerAdded(player)
+end
